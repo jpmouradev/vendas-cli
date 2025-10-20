@@ -1,0 +1,60 @@
+[project]
+name = "vendas-cli"
+version = "0.1.0"
+description = "CLI para gerar relatórios avançados de vendas a partir de CSV."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas>=2.0",
+    "pydantic>=2.6",
+    "pandera>=0.16.0"
+]
+
+[[project.authors]]
+name = "João Pedro"
+email = "jpmourabraga@gmail.com"
+
+[project.scripts]
+vendas-cli = "vendas_cli.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov",
+    "mypy",
+    "pandas-stubs",
+    "types-setuptools",
+    "pre-commit",
+    "ruff>=0.5.0",  
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_any_generics = true
+no_implicit_optional = true
+show_error_codes = true
+pretty = true
+packages = ["vendas_cli"]
+explicit_package_bases = true
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "C4", "Q", "SIM", "T", "S", "UP", "I"]
+ignore = ["E501"]
+unfixable = ["F401"]
+
+[tool.ruff.lint.per-file-ignores]
+"init.py" = ["F401"]
+"tests/*" = ["S101", "SIM105", "D"]
+"cli.py" = ["T201"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
